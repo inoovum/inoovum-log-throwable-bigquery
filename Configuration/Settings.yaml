@@ -1,0 +1,11 @@
+#Inoovum:
+#  Log:
+#    Throwable:
+#      classes:
+#        -
+#          class: 'Inoovum\Log\Throwable\BigQuery\Log\BigQuery'
+#          options:
+#            projectId: '<your-google-cloud-console-project>'
+#            datasetId: '<your-bigquery-dataset-id>'
+#            tableId: '<your-bigquery-table-id>'
+#            keyFile: '<your-key-file-base64-encoded>'

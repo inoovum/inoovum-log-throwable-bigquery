@@ -1,0 +1,19 @@
+{
+    "description": "inoovum® throwable log bigquery package",
+    "type": "neos-package",
+    "name": "inoovum/log-throwable-bigquery",
+    "require": {
+        "inoovum/log-throwable": "^1.0",
+        "google/cloud-bigquery": "v1.28.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Inoovum\\Log\\Throwable\\BigQuery\\": "Classes/"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "Inoovum.Log.Throwable.BigQuery"
+        }
+    }
+}
