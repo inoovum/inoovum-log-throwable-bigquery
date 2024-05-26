@@ -3,8 +3,9 @@ namespace Inoovum\Log\Throwable\BigQuery\Log;
 
 use Neos\Flow\Annotations as Flow;
 use Google\Cloud\BigQuery\BigQueryClient;
+use Inoovum\Log\Throwable\Log\ThrowableInterface;
 
-class BigQuery
+class BigQuery implements ThrowableInterface
 {
 
     /**
