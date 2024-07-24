@@ -15,7 +15,7 @@ class BigQuery implements ThrowableInterface
      */
     public function throwError(string $errorInfo, array $options): void
     {
-        $this->writeLogEntry($errorInfo, $options['projectId'], $options['datasetId'], $options['tableId'], $options['keyFile']);
+        $this->writeLogEntry($errorInfo, $options['projectId'], $options['datasetId'], $options['tableId'], $options['keyFile'], $options['referenceCode']);
     }
 
     /**
@@ -24,9 +24,10 @@ class BigQuery implements ThrowableInterface
      * @param string $datasetId
      * @param string $tableId
      * @param string $keyFile
+     * @param string $referenceCode
      * @return void
      */
-    private function writeLogEntry(string $errorInfo, string $projectId, string $datasetId, string $tableId, string $keyFile): void
+    private function writeLogEntry(string $errorInfo, string $projectId, string $datasetId, string $tableId, string $keyFile, string $referenceCode): void
     {
         $bigQuery = new BigQueryClient([
             'projectId' => $projectId,
@@ -35,19 +36,23 @@ class BigQuery implements ThrowableInterface
         $dataset = $bigQuery->dataset($datasetId);
 
         $table = $dataset->table($tableId);
+
+        $schema = [
+            'fields' => [
+                ['name' => 'referenceCode', 'type' => 'STRING'],
+                ['name' => 'exception', 'type' => 'STRING'],
+                ['name' => 'tstamp', 'type' => 'DATETIME'],
+            ],
+        ];
+
         if (!$table->exists()) {
-            $schema = [
-                'fields' => [
-                    ['name' => 'exception', 'type' => 'STRING'],
-                    ['name' => 'tstamp', 'type' => 'DATETIME'],
-                ],
-            ];
             $table = $dataset->createTable($tableId, ['schema' => $schema]);
         } else {
             $table = $dataset->table($tableId);
         }
 
         $data = [
+            'referenceCode' => $referenceCode,
             'exception' => $errorInfo,
             'tstamp' => (new \DateTime())->format('Y-m-d H:i:s')
         ];
