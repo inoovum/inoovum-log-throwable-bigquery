@@ -27,7 +27,7 @@ class BigQuery implements ThrowableInterface
      * @param string $referenceCode
      * @return void
      */
-    private function writeLogEntry(string $errorInfo, string $projectId, string $datasetId, string $tableId, string $keyFile, string $referenceCode): void
+    private function writeLogEntry(string $errorInfo, string $projectId, string $datasetId, string $tableId, string $keyFile, string|null $referenceCode): void
     {
         $bigQuery = new BigQueryClient([
             'projectId' => $projectId,
@@ -52,7 +52,7 @@ class BigQuery implements ThrowableInterface
         }
 
         $data = [
-            'referenceCode' => $referenceCode,
+            'referenceCode' => $referenceCode === null ? 'null' : $referenceCode,
             'exception' => $errorInfo,
             'tstamp' => (new \DateTime())->format('Y-m-d H:i:s')
         ];
