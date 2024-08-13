@@ -52,7 +52,7 @@ class BigQuery implements ThrowableInterface
         }
 
         $data = [
-            'referenceCode' => $referenceCode === null ? 'null' : $referenceCode,
+            'referenceCode' => ($referenceCode === null ? 'null' : $referenceCode),
             'exception' => $errorInfo,
             'tstamp' => (new \DateTime())->format('Y-m-d H:i:s')
         ];
