@@ -24,10 +24,10 @@ class BigQuery implements ThrowableInterface
      * @param string $datasetId
      * @param string $tableId
      * @param string $keyFile
-     * @param string $referenceCode
+     * @param mixed $referenceCode
      * @return void
      */
-    private function writeLogEntry(string $errorInfo, string $projectId, string $datasetId, string $tableId, string $keyFile, string|null $referenceCode): void
+    private function writeLogEntry(string $errorInfo, string $projectId, string $datasetId, string $tableId, string $keyFile, $referenceCode): void
     {
         $bigQuery = new BigQueryClient([
             'projectId' => $projectId,
